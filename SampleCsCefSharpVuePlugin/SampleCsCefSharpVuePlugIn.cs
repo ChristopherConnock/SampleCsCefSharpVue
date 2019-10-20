@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using CefSharp;
 using CefSharp.WinForms;
+using Rhino.DocObjects;
 using Rhino.PlugIns;
 using Rhino.UI;
 
@@ -59,14 +60,23 @@ namespace SampleCsCefSharpVue
             Browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
 
             Rhino.RhinoDoc.AddRhinoObject += RhinoDoc_AddRhinoObject;
+            Rhino.RhinoDoc.SelectObjects += RhinoDoc_SelectObjects;
 
             return base.OnLoad(ref errorMessage);
+        }
+
+        private void RhinoDoc_SelectObjects(object sender, RhinoObjectSelectionEventArgs e)
+        {
+            Interop.AddText("selected something!");
         }
 
         private void RhinoDoc_AddRhinoObject(object sender, Rhino.DocObjects.RhinoObjectEventArgs e)
         {
             Interop.AddText(e.TheObject.ObjectType.ToString());
         }
+
+
+
 
         private void Browser_IsBrowserInitializedChanged(object sender, EventArgs e)
         {
