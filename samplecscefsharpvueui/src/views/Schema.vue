@@ -6,16 +6,14 @@
     <v-subheader>EXISTING FIELDS</v-subheader>
     <v-spacer ></v-spacer>
     <v-divider></v-divider>
-    {{this.$store.state.desc}}
-    {{this.$store.state.fields[0].name}}
-    <!-- <v-list>
+    <v-list>
       <v-list-item
         v-for="field in this.$store.state.fields"
         :key="field.name"
       >
-      1
+      {{field.name}} : {{field.type.name}}
       </v-list-item>
-    </v-list> -->
+    </v-list>
   </v-container>
 </template>
 

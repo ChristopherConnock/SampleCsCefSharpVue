@@ -11,7 +11,7 @@
     ></v-select>
     <component v-bind:is="fieldType.component"></component>
     <v-container>
-      <v-btn block color="primary">Add to Schema</v-btn>
+      <v-btn block color="primary" @click="addField">Add to Schema</v-btn>
     </v-container>
   </v-container>
 </template>

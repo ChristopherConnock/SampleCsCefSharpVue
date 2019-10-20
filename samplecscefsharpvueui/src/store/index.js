@@ -16,6 +16,7 @@ export default new Vuex.Store({
     },
 
     addField (state, field) {
+      console.log(field)
       state.fields.push(field)
     }
   },
