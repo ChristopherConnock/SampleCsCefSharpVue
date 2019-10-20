@@ -7,12 +7,13 @@
     <v-spacer ></v-spacer>
     <v-divider></v-divider>
     <v-list>
-      <v-list-item
-        v-for="field in this.$store.state.fields"
-        :key="field.name"
-      >
-      {{field.name}} : {{field.type.name}}
-      </v-list-item>
+      <v-list-item two-line v-for="field in this.$store.state.fields"
+        :key="field.name">
+      <v-list-item-content>
+        <v-list-item-title>{{field.name}}</v-list-item-title>
+        <v-list-item-subtitle>{{field.type.name}}</v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
     </v-list>
   </v-container>
 </template>
