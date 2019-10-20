@@ -38,6 +38,11 @@ namespace SampleCsCefSharpVue
             NotifyFrame("add-text", text);
         }
 
+        public void AddJSON(string text)
+        {
+            NotifyFrame("add-json", text);
+        }
+
         #endregion
 
         #region From UI

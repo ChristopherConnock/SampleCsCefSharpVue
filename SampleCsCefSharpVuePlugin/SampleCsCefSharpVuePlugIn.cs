@@ -6,6 +6,7 @@ using CefSharp.WinForms;
 using Rhino.DocObjects;
 using Rhino.PlugIns;
 using Rhino.UI;
+using Newtonsoft.Json.Linq;
 
 namespace SampleCsCefSharpVue
 {
@@ -67,12 +68,47 @@ namespace SampleCsCefSharpVue
 
         private void RhinoDoc_SelectObjects(object sender, RhinoObjectSelectionEventArgs e)
         {
-            Interop.AddText("selected something!");
+            //Interop.AddText("selected something!");
+
+            if (e.Selected) // objects were selected
+            {
+                // do something
+                foreach (RhinoObject obj in e.RhinoObjects)
+                {
+                    //RhinoApp.Writeline(obj.Id + " was selected");
+                    //Interop.AddText(obj.Id + " was selected");
+                    //Interop.AddText(obj.Attributes.UserStringCount + " total strings");
+                    var userStrings = obj.Attributes.GetUserStrings();
+                    JObject selectedObjectParams = new JObject();
+                    selectedObjectParams.Add(new JProperty("guid", obj.Id));
+                    selectedObjectParams.Add(new JProperty("name", obj.Name));
+                    JArray userDataJArray = new JArray();
+                    foreach (var key in userStrings.AllKeys)
+                    {
+                        //Interop.AddText(key + ": " + userStrings[key]);
+                        userDataJArray.Add(new JObject(
+                            new JProperty("key", key),
+                            new JProperty("value", userStrings[key])));
+
+                    }
+                    selectedObjectParams.Add(new JProperty("userdata", userDataJArray));
+                    Interop.AddJSON(selectedObjectParams.ToString(Newtonsoft.Json.Formatting.None));
+                }
+            }
+            else //objects were de-selected
+            {
+                // do something
+                foreach (RhinoObject obj in e.RhinoObjects)
+                {
+                    //RhinoApp.Writeline(obj.Id + " was deselected");
+                    //Interop.AddText(obj.Id + " was deselected");
+                }
+            }
         }
 
         private void RhinoDoc_AddRhinoObject(object sender, Rhino.DocObjects.RhinoObjectEventArgs e)
         {
-            Interop.AddText(e.TheObject.ObjectType.ToString());
+            //Interop.AddText(e.TheObject.ObjectType.ToString());
         }
 
 
